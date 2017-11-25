@@ -1,26 +1,13 @@
-<html>
-  <head>
-    <title>Viktor's blog</title>
-  </head>
-  <body>
-    <div>
-      <h1><a href="/">Django Boys Blog</a></h1>
-    </div>
+{% extends 'blog/base.html' %}
 
-    <div>
-      <p>published: 14.06.2014, 12:14</p>
-      <h2><a href="">My first post</a></h2>
-      <p>The most prominent achivement was made by people who just followed thier passion. Because passion doesn't know work hours, passion doesn't need motivation, it is an energy itself. And when we remove the boundaries for our passion we can just stand by and ore by the marvels it creates by our hands. The things we are not even imagined we can do is done with breathtaking elegance.</p>
+{% block content %}
+  {% for post in posts %}
+    <div class="post">
+      <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+      <p>{{ post.text|linebreaksbr }}</p>
+      <div class="date">
+        <p>published: {{ post.published_date }}</p>
+      </div>
     </div>
-
-    <div>
-      {% for post in posts %}
-        <div>
-          <h1><a href="">{{ post.title }}</a></h1>
-          <p>{{ post.text|linebreaksbr }}</p>
-          <p>published: {{ post.published_date }} by {{post.author }}</p>
-        </div>
-      {% endfor %}
-    </div>
-  </body>
-</html>
+  {% endfor %}
+{% endblock %}
